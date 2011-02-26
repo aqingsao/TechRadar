@@ -8,9 +8,12 @@
     <script type="text/javascript" src="./javascripts/application.js"></script>
     <script>
         $(document).ready(function(){
-			var java = new Star(20, 0, 0, 80, 5, 10, "red");
-			var csharp = new Star(0, 30, 70, 0, 2, 4, "blue");
-			var technologySky = new TechnologySky("canvas", [java, csharp]);
+			var java = new Star(20, 0, 0, 80, 5, 10, Community.Java);
+			var csharp = new Star(0, 30, 70, 0, 4, 4, Community.DotNet);
+			var dbMigration = new Star(40, 20, 30, 10, 3, 10, Community.Database);
+			var jquery = new Star(10, 30, 60, 0, 2, 4, Community.JavaScript);
+			var js = new Star(0, 10, 10, 80, 1, 1, Community.JavaScript);
+			var technologySky = new TechnologySky("canvas", [java, csharp, dbMigration, jquery, js]);
 			technologySky.draw();
 		});
     </script>
@@ -40,7 +43,7 @@
     </section>
 	<section>
 		<p id="sub-links">
-           <a href="http://xiaoqing.me">Xiaoqing Zhang</a> from ThoughtWorks. All rights reserved. 
+           Author: <a href="http://xiaoqing.me">Xiaoqing Zhang</a>. All rights reserved. 
         </p>
 	</section>
 </div>

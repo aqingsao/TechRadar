@@ -15,6 +15,73 @@ var technologySkyQuadrantsUpMargin = 30;
 
 var starImportanceFactor = 2;
 
+if(typeof Community == "undefined"){
+
+    var Community = {
+
+    Java:{
+		id: 0, 
+		color: "red"
+	},
+    DotNet:{
+		id: 1, 
+		color: "blue"
+	},
+    Database:{
+		id: 2, 
+		color: "green"
+	},
+    Scala:{
+		id:3, 
+		color:"pink"
+	},
+    Html:{
+		id:4, 
+		color:"yellow"
+	},
+    JavaScript:{
+		id:5, 
+		color:"orange"
+	}, 
+	NA:{
+		id:-1,
+		color:"white"
+	}
+	};
+}
+if(typeof License == "undefined"){
+    var License = {
+		Commercial:{ 
+			id:0,
+			shape: Shape.Circle
+		},
+		OpenSource:{
+			id:1,
+			shape: Shape.Triangle
+		},
+		BSD:{ 
+			id:2,
+			shape: Shape.Triangle
+		},
+		Apache:{ 
+			id:3,
+			shape: Shape.Square
+		},
+		GPL:{ 
+			id:4,
+			shape: Shape.Hexagon
+		},
+		LGPL:{ 
+			id:5,
+			shape: Shape.Octagon
+		},
+		NA:{
+			id:-1,
+			shape: Shape.FiveStar
+		}
+	};
+}
+
 function TechnologySky(technologySkyId, stars) {
 	var canvas = document.getElementById(technologySkyId);
 	this.context = canvas.getContext("2d");
@@ -25,7 +92,7 @@ function TechnologySky(technologySkyId, stars) {
 	
 	this.stars = stars;
 	for(var i = 0; i < this.stars.length; i++){
-		this.stars[i].initPosition(this.central, this.radius);
+		this.stars[i].init(this.central, this.radius);
 	}
 }
 
@@ -95,14 +162,15 @@ TechnologySky.prototype.drawStar =  function(star){
 	this.context.fill();
 }
 
-function Star(techniqueFactor, toolFactor, platformFactor, languageFactor, voteCount, grade, color){
+function Star(techniqueFactor, toolFactor, platformFactor, languageFactor, voteCount, grade, community, license){
 	this.techniqueFactor = techniqueFactor;
 	this.toolFactor = toolFactor;
 	this.languageFactor = languageFactor;
 	this.platformFactor = platformFactor;
 	this.voteCount = voteCount;	
 	this.grade = grade;
-	this.color = color;
+	this.community = community;
+	this.license = license;
 }
 
 Star.prototype.getPosition = function(central){
@@ -113,10 +181,13 @@ Star.prototype.getRadius = function(){
 	return this.voteCount * starImportanceFactor;
 }
 Star.prototype.getColor = function(){
-	return this.color;
+	return this.community.color;
+}
+Star.prototype.getShape = function(){
+	return this.license.shape;
 }
 
-Star.prototype.initPosition = function(central, radius){
+Star.prototype.init = function(central, radius){
 	var x = this.languageFactor + this.toolFactor - this.techniqueFactor - this.platformFactor;
 	var y = this.platformFactor + this.languageFactor - this.techniqueFactor - this.toolFactor;
 	this.position = new Point(central.x + x, central.y + y);
@@ -130,4 +201,8 @@ function Point(x, y){
 Point.prototype.relativeTo = function(p){
 	var cosine = dot / length1 / length2;
 	return new Point();
+}
+
+function Shape(){
+	
 }
