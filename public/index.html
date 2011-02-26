@@ -9,15 +9,8 @@
     <script>
 		
         $(document).ready(function(){
-			var canvas = document.getElementById("canvas");
-			var context = canvas.getContext("2d");
-			var width = canvas.width;
-			var height = canvas.height;
-			
-			drawBackground(context, height, width);
-			drawCoordinates(context, height, width);
-			drawQuadrants(context, height, width);
-			drawRings(context, height, width);
+			var radar = new Radar("canvas");
+			radar.draw();
 		});
     </script>
 </head>
