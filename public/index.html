@@ -8,7 +8,9 @@
     <script type="text/javascript" src="./javascripts/application.js"></script>
     <script>
         $(document).ready(function(){
-			var technologySky = new TechnologySky("canvas");
+			var java = new Star(20, 0, 0, 80, 5, 10);
+			var stars = [java];
+			var technologySky = new TechnologySky("canvas", stars);
 			technologySky.draw();
 		});
     </script>

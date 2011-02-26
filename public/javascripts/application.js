@@ -13,17 +13,20 @@ var technologySkyQuadrantsColor = "#386077";
 var technologySkyQuadrantsLeftMargin = 30;
 var technologySkyQuadrantsUpMargin = 30;
 
-function TechnologySky(technologySkyId) {
+function TechnologySky(technologySkyId, stars) {
 	var canvas = document.getElementById(technologySkyId);
 	this.context = canvas.getContext("2d");
 	this.width = canvas.width;
 	this.height = canvas.height;
+	this.central = new Point(this.width / 2, this.height/2);
+	this.stars = stars;
 }
 
 TechnologySky.prototype.draw = function(){
 	this.drawBackground();
 	this.drawRings();
 	this.drawQuadrants();
+	this.drawStars();
 }
 
 TechnologySky.prototype.drawBackground = function(){
@@ -45,7 +48,7 @@ TechnologySky.prototype.drawRings = function(){
 
 TechnologySky.prototype.drawRing = function(radius, text){
 	this.context.beginPath();
-	this.context.arc(this.height/2, this.width/2, radius, 0, Math.PI * 2, false);
+	this.context.arc(this.central.x, this.central.y, radius, 0, Math.PI * 2, false);
 	this.context.closePath();
 	this.context.strokeStyle = technologySkyRingColor;
 	this.context.stroke();
@@ -70,10 +73,41 @@ TechnologySky.prototype.drawQuadrants =  function(){
 	this.context.fillText("Languages", this.width - technologySkyQuadrantsLeftMargin, this.height - technologySkyQuadrantsUpMargin);
 }
 
-function TechnologyStar(techniqueFactor){
+TechnologySky.prototype.drawStars =  function(){
+	for(var i = 0; i < this.stars.length; i++){
+		this.drawStar(this.stars[i]);
+	}
+}
+
+TechnologySky.prototype.drawStar =  function(star){
+	var position = star.getPosition();
+	
+	this.context.beginPath();
+	this.context.arc(this.central.x + position.x, this.central.y + position.y, star.getRadius(), 0, Math.PI * 2, false);
+	this.context.closePath();
+	this.context.fillStyle = "red";
+	this.context.fill();
+}
+
+function Star(techniqueFactor, toolFactor, platformFactor, languageFactor, importance){
 	this.techniqueFactor = techniqueFactor;
 	this.toolFactor = toolFactor;
 	this.languageFactor = languageFactor;
 	this.platformFactor = platformFactor;
-	
+	this.importance = importance;	
+}
+
+Star.prototype.getPosition = function(){
+	var x = this.toolFactor + this.languageFactor - this.techniqueFactor - this.platformFactor;
+	var y = this.platformFactor + this.languageFactor - this.techniqueFactor - this.toolFactor;
+	return new Point(x, y);
+}
+
+Star.prototype.getRadius = function(){
+	return this.importance;
+}
+
+function Point(x, y){
+	this.x = x;
+	this.y = y;
 }
