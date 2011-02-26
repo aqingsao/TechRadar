@@ -1,76 +1,47 @@
-body, h1, h2, h3, h4, h5, h6 {
-    color: #555555;
-    font-family: MetaWebPro-Bold, sans-serif;
+*{
+	margin: 0;
+	padding: 0;
+}
+body {
+    background: url("bg.jpg") repeat scroll 0 0 #080E24;
+    color: #626668;
+    font: 14px/1.5 "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
 #wrapper {
     min-width: 950px;
+    margin: 0 auto;
+    width: 960px;
 }
 
-#doc {
-    margin: auto;
+header{
+	text-align:center;
+}
+header h1{
+	color: #EEE5A2;
+    font-size: 63px;
+    line-height: 1;
+    text-shadow: 5px 5px #32312B;
+    text-transform: uppercase;
+	font-family:"proxima-nova-extra-condensed-1","proxima-nova-extra-condensed-2","Helvetica Neue","Helvetica","Sans-serif";
+}
+header p{
+	color: #6A695F;
+    font-size: 24px;
+    margin: 0 0 10px;
+}
+
+section {
     position: relative;
-    text-align: left;
-    width: 950px;
-    min-width: 750px;
-    z-index: 1;
+	display:block;
 }
 
-#main-feature{
-    padding-bottom: 20px;
-}
-
-#main-feature h2 {
-    float: left;
-    font-size: 200%;
-    margin: 0;
-    padding: 0;
-}
-#main-feature h2 a:link, #main-feature h2 a:active, #main-feature h2 a:visited, #main-feature h2 a:hover{
-    text-decoration:none;
-}
-
-#main-feature h2 {
-    color: #888888;
-    font-size: 360%;
-    margin: 0 0px 0 0px;
-}
-
-#main-feature p {
-    color: #69645C;
-    font-family: MetaWebPro-Book, sans-serif;
-    font-size: 20px;
-    letter-spacing: -0.015em;
-    line-height: 1.24;
-    margin: 25px 75px 10px 528px;
-}
-
-#main-feature #title-logo {
-    display: block;
-    height: 130px;
-    margin: 0 15px 15px 0;
-}
-
-#main-content {
-    clear: both;
-    font-size: 15px;
-    margin: 0px 15px 25px 0;
-    width: 635px;
-    height: 635px;
-    float: left;
-    display: block;
-    position: relative;
-}
-#main-content #canvas{
+#canvas{
     -moz-border-radius: 10px 10px 10px 10px;
-    border: 1px solid #F9AE64;
-    width: 635px;
-    height: 635px;
+	display:block;
+	margin: 0px auto;
 }
 
-#main-content #helper{
-    color: #aaaaaa;
-}
 #sidebar {
     margin-right: 0;
     width: 285px;
@@ -100,43 +71,10 @@ body, h1, h2, h3, h4, h5, h6 {
     margin: 0;
 }
 
-ul {
+ul.link {
     left: 0;
     margin: 0;
     padding: 0;
-}
-
-#connect.sub-feature ul.link li a {
-    padding-left: 40px;
-}
-#personalize a {
-    color:red;
-}
-
-#personalize {
-/*background: url("/img/firefox/3.6/firstrun/rockyourfirefox/background.png") no-repeat scroll right top #E9F2F5;*/
-}
-
-#personalize #personalize-rockyourfirefox {
-    display: block;
-}
-
-#personalize h3 {
-    margin-right: 45px;
-}
-
-
-#personalize p {
-    color: #555555;
-    font-family: MetaWebPro-Book, sans-serif;
-    font-size: 14px;
-    line-height: 1.2;
-    margin: 5px 75px 10px 0;
-}
-
-#personalize ul.link {
-    bottom: 15px;
-    left: 15px;
 }
 
 ul.link li {
@@ -146,14 +84,7 @@ ul.link li {
     line-height: 24px;
     margin: 10px 0 0;
     padding: 0;
-}
-
-li {
     list-style: none outside none;
-}
-
-#personalize ul.link a {
-    width: 200px;
 }
 
 #sub-links {
@@ -161,14 +92,10 @@ li {
     font-family: MetaWebPro-Book, sans-serif;
     font-size: 14px;
     text-align: center;
-}
-
-#sub-links a {
-    margin-left: 0.5em;
-    margin-right: 0.5em;
+    color: #EEE5A2;
 }
 
 a:link, a:visited, a:hover, a:active {
-    color: #555555;
+    color: #EEE5A2;
     text-decoration: underline;
 }

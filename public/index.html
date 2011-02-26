@@ -7,7 +7,6 @@
     <script type="text/javascript" src="./javascripts/jquery-1.5.js"></script>
     <script type="text/javascript" src="./javascripts/application.js"></script>
     <script>
-		
         $(document).ready(function(){
 			var technologySky = new TechnologySky("canvas");
 			technologySky.draw();
@@ -16,49 +15,32 @@
 </head>
 
 <div id="wrapper">
-    <div id="doc">
-        <div id="main-feature" class="latest-version">
-            <h2><a href="index.html">Technology Sky</a></h2>
-
-            <p>Be Keen on Technology</p>
-        </div>
-
-        <div id="main-content">
-            <canvas id="canvas" height="800" width="800">
+	<section>
+	        <header class="clearfix">
+	            <h1>Technology Sky</h1>
+	            <p>Be Keen on Technology</p>
+	        </header>
+	    </section>
+	
+    <section>
+            <canvas id="canvas" width="800" height="800">
                 Your browser does not support Canvas, please install Firefox 4.0 or Safari/chrome.
             </canvas>
-            <div id="helper">
-				This is helper
-            </div>
-        </div>
 
-        <div id="sidebar">
-
+        <div id="sidebar" style="display:none">
             <div class="sub-feature" id="connect">
                 <h3>Hi, h3</h3>
                 <ul class="link">
                     <li><a href="./moreFunctions.html">Other links</a></li>
                 </ul>
             </div>
-
-            <div class="sub-feature" id="personalize">
-                <div id="personalize-thunderbird">
-                    <h3>Create your own</h3>
-
-                    <p>Create online</p>
-                    <ul class="link">
-                        <li><a href="./myFamilyTree.html">Click to </a></li>
-                    </ul>
-
-                </div>
-            </div>
-
         </div>
-
-        <p id="sub-links">
-           All rights reserved. By Xiaoqing Zhang(http://xiaoqing.me) from ThoughtWorks
+    </section>
+	<section>
+		<p id="sub-links">
+           <a href="http://xiaoqing.me">Xiaoqing Zhang</a> from ThoughtWorks. All rights reserved. 
         </p>
-    </div>
+	</section>
 </div>
 </body>
 </html>
