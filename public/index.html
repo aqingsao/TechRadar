@@ -8,9 +8,9 @@
     <script type="text/javascript" src="./javascripts/application.js"></script>
     <script>
         $(document).ready(function(){
-			var java = new Star(20, 0, 0, 80, 5, 10);
-			var stars = [java];
-			var technologySky = new TechnologySky("canvas", stars);
+			var java = new Star(20, 0, 0, 80, 5, 10, "red");
+			var csharp = new Star(0, 30, 70, 0, 2, 4, "blue");
+			var technologySky = new TechnologySky("canvas", [java, csharp]);
 			technologySky.draw();
 		});
     </script>

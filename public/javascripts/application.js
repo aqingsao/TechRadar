@@ -13,13 +13,20 @@ var technologySkyQuadrantsColor = "#386077";
 var technologySkyQuadrantsLeftMargin = 30;
 var technologySkyQuadrantsUpMargin = 30;
 
+var starImportanceFactor = 2;
+
 function TechnologySky(technologySkyId, stars) {
 	var canvas = document.getElementById(technologySkyId);
 	this.context = canvas.getContext("2d");
 	this.width = canvas.width;
 	this.height = canvas.height;
+	this.radius = Math.min(this.height, this.width) / 2;
 	this.central = new Point(this.width / 2, this.height/2);
+	
 	this.stars = stars;
+	for(var i = 0; i < this.stars.length; i++){
+		this.stars[i].initPosition(this.central, this.radius);
+	}
 }
 
 TechnologySky.prototype.draw = function(){
@@ -35,15 +42,14 @@ TechnologySky.prototype.drawBackground = function(){
 }
 
 TechnologySky.prototype.drawRings = function(){
-	var radius = Math.min(this.height, this.width) / 2;
 	this.context.font = technologySkyRingFont;
 	this.context.textAlign = "center";
 	this.context.textBaseline = "middle";
 	
-	this.drawRing((radius) * 0.95, "Hold");
-	this.drawRing((radius * 3 / 4) * 1, "Assess");
-	this.drawRing((radius / 2) * 1.1, "Trial");
-	this.drawRing((radius / 4) * 1.2, "Adopt");
+	this.drawRing((this.radius) * 0.95, "Hold");
+	this.drawRing((this.radius * 3 / 4) * 1, "Assess");
+	this.drawRing((this.radius / 2) * 1.1, "Trial");
+	this.drawRing((this.radius / 4) * 1.2, "Adopt");
 }
 
 TechnologySky.prototype.drawRing = function(radius, text){
@@ -80,34 +86,48 @@ TechnologySky.prototype.drawStars =  function(){
 }
 
 TechnologySky.prototype.drawStar =  function(star){
-	var position = star.getPosition();
+	var position = star.getPosition(this.central);
 	
 	this.context.beginPath();
-	this.context.arc(this.central.x + position.x, this.central.y + position.y, star.getRadius(), 0, Math.PI * 2, false);
+	this.context.arc(position.x, position.y, star.getRadius(), 0, Math.PI * 2, false);
 	this.context.closePath();
-	this.context.fillStyle = "red";
+	this.context.fillStyle = star.getColor();
 	this.context.fill();
 }
 
-function Star(techniqueFactor, toolFactor, platformFactor, languageFactor, importance){
+function Star(techniqueFactor, toolFactor, platformFactor, languageFactor, voteCount, grade, color){
 	this.techniqueFactor = techniqueFactor;
 	this.toolFactor = toolFactor;
 	this.languageFactor = languageFactor;
 	this.platformFactor = platformFactor;
-	this.importance = importance;	
+	this.voteCount = voteCount;	
+	this.grade = grade;
+	this.color = color;
 }
 
-Star.prototype.getPosition = function(){
-	var x = this.toolFactor + this.languageFactor - this.techniqueFactor - this.platformFactor;
-	var y = this.platformFactor + this.languageFactor - this.techniqueFactor - this.toolFactor;
-	return new Point(x, y);
+Star.prototype.getPosition = function(central){
+	return this.position;
 }
 
 Star.prototype.getRadius = function(){
-	return this.importance;
+	return this.voteCount * starImportanceFactor;
+}
+Star.prototype.getColor = function(){
+	return this.color;
+}
+
+Star.prototype.initPosition = function(central, radius){
+	var x = this.languageFactor + this.toolFactor - this.techniqueFactor - this.platformFactor;
+	var y = this.platformFactor + this.languageFactor - this.techniqueFactor - this.toolFactor;
+	this.position = new Point(central.x + x, central.y + y);
 }
 
 function Point(x, y){
 	this.x = x;
 	this.y = y;
+}
+
+Point.prototype.relativeTo = function(p){
+	var cosine = dot / length1 / length2;
+	return new Point();
 }
