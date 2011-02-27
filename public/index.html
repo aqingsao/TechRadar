@@ -8,11 +8,11 @@
     <script type="text/javascript" src="./javascripts/application.js"></script>
     <script>
         $(document).ready(function(){
-			var java = new Star(20, 0, 0, 80, 5, 10, Community.Java);
-			var csharp = new Star(0, 30, 70, 0, 4, 4, Community.DotNet);
-			var dbMigration = new Star(40, 20, 30, 10, 3, 10, Community.Database);
-			var jquery = new Star(10, 30, 60, 0, 2, 4, Community.JavaScript);
-			var js = new Star(0, 10, 10, 80, 1, 1, Community.JavaScript);
+			var java = new Star(new Category(100, 0, 0, 0), Community.Java, License.OpenSource, 5, 5);
+			var csharp = new Star(new Category(0, 100, 0, 0), Community.DotNet, License.Commercial, 4, 4);
+			var dbMigration = new Star(new Category(0, 0, 100, 0), Community.Database, License.Commercial, 3, 3);
+			var jquery = new Star(new Category(0, 0, 0, 100), Community.JavaScript, License.Commercial, 2, 2);
+			var js = new Star(new Category(25, 25, 25, 25), Community.JavaScript, License.Commercial, 1, 1);
 			var technologySky = new TechnologySky("canvas", [java, csharp, dbMigration, jquery, js]);
 			technologySky.draw();
 		});

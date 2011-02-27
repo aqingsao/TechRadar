@@ -13,8 +13,43 @@ var technologySkyQuadrantsColor = "#386077";
 var technologySkyQuadrantsLeftMargin = 30;
 var technologySkyQuadrantsUpMargin = 30;
 
-var starImportanceFactor = 2;
+var PopularityLevelFactor = 2;
 
+var cospi4 = Math.cos(Math.PI / 4);
+var cos3pi4 = Math.cos(Math.PI * 3 / 4);
+var cos5pi4 = Math.cos(Math.PI * 5 / 4);
+var cos7pi4 = Math.cos(Math.PI * 7 / 4);
+var sinpi4 = Math.sin(Math.PI / 4);
+var sin3pi4 = Math.sin(Math.PI * 3 / 4);
+var sin5pi4 = Math.sin(Math.PI * 5 / 4);
+var sin7pi4 = Math.sin(Math.PI * 7 / 4);
+
+function Category(techniqueFactor, toolFactor, platformFactor, languageFactor){
+	this.techniqueFactor = techniqueFactor;
+	this.toolFactor = toolFactor;
+	this.languageFactor = languageFactor;
+	this.platformFactor = platformFactor;	
+}
+Category.prototype.offX = function(){
+	return (this.toolFactor * cospi4 + this.techniqueFactor * cos3pi4 + this.platformFactor * cos5pi4 + this.languageFactor * cos7pi4)/100;
+}
+Category.prototype.offY = function(){
+	return (this.toolFactor * sinpi4 + this.techniqueFactor * sin3pi4 + this.platformFactor * sin5pi4 + this.languageFactor * sin7pi4)/100;
+}
+
+function Grade(grade){
+	this.grade = grade;	
+}
+if(typeof Shape == "undefined"){
+	var Shape = {
+		Circle: {id:1}, 
+		Triangle: {id:2},
+		Square: {id:3},
+		Hexagon: {id:4},
+		Octagon: {id:5},		
+		FiveStar: {id:6}		
+	}
+}
 if(typeof Community == "undefined"){
 
     var Community = {
@@ -100,6 +135,7 @@ TechnologySky.prototype.draw = function(){
 	this.drawBackground();
 	this.drawRings();
 	this.drawQuadrants();
+	this.drawCoordinates();
 	this.drawStars();
 }
 
@@ -113,13 +149,12 @@ TechnologySky.prototype.drawRings = function(){
 	this.context.textAlign = "center";
 	this.context.textBaseline = "middle";
 	
-	this.drawRing((this.radius) * 0.95, "Hold");
-	this.drawRing((this.radius * 3 / 4) * 1, "Assess");
-	this.drawRing((this.radius / 2) * 1.1, "Trial");
-	this.drawRing((this.radius / 4) * 1.2, "Adopt");
+	for(var i = 1; i <= 5; i++){
+		this.drawRing(this.radius * i / 5);
+	}
 }
 
-TechnologySky.prototype.drawRing = function(radius, text){
+TechnologySky.prototype.drawRing = function(radius){
 	this.context.beginPath();
 	this.context.arc(this.central.x, this.central.y, radius, 0, Math.PI * 2, false);
 	this.context.closePath();
@@ -145,6 +180,16 @@ TechnologySky.prototype.drawQuadrants =  function(){
 	this.context.textAlign = "right";
 	this.context.fillText("Languages", this.width - technologySkyQuadrantsLeftMargin, this.height - technologySkyQuadrantsUpMargin);
 }
+TechnologySky.prototype.drawCoordinates = function(){	
+	this.context.beginPath();
+	this.context.moveTo(0, this.height/2);
+	this.context.lineTo(this.width, this.height/2);
+	this.context.moveTo(this.width /2 , 0);
+	this.context.lineTo(this.width / 2, this.height);
+	this.context.closePath();
+	this.context.strokeStyle = technologySkyCoordinateColor;
+	this.context.stroke();
+}
 
 TechnologySky.prototype.drawStars =  function(){
 	for(var i = 0; i < this.stars.length; i++){
@@ -162,15 +207,12 @@ TechnologySky.prototype.drawStar =  function(star){
 	this.context.fill();
 }
 
-function Star(techniqueFactor, toolFactor, platformFactor, languageFactor, voteCount, grade, community, license){
-	this.techniqueFactor = techniqueFactor;
-	this.toolFactor = toolFactor;
-	this.languageFactor = languageFactor;
-	this.platformFactor = platformFactor;
-	this.voteCount = voteCount;	
-	this.grade = grade;
+function Star(category, community, license, popularity, value){
+	this.category = category;
 	this.community = community;
 	this.license = license;
+	this.popularity = popularity < 0 ? 0 : (popularity > 5 ? 5 : popularity);	
+	this.value = value < 0 ? 0 : (value > 5 ? 5 : value);	
 }
 
 Star.prototype.getPosition = function(central){
@@ -178,7 +220,7 @@ Star.prototype.getPosition = function(central){
 }
 
 Star.prototype.getRadius = function(){
-	return this.voteCount * starImportanceFactor;
+	return this.popularity * PopularityLevelFactor;
 }
 Star.prototype.getColor = function(){
 	return this.community.color;
@@ -187,10 +229,14 @@ Star.prototype.getShape = function(){
 	return this.license.shape;
 }
 
-Star.prototype.init = function(central, radius){
-	var x = this.languageFactor + this.toolFactor - this.techniqueFactor - this.platformFactor;
-	var y = this.platformFactor + this.languageFactor - this.techniqueFactor - this.toolFactor;
-	this.position = new Point(central.x + x, central.y + y);
+Star.prototype.init = function(central, maxRadius){
+	var radius = (5 - this.value)/5 * maxRadius;
+	if(radius < maxRadius / 20){
+		radius = maxRadius / 20;
+	}
+	var x = this.category.offX() * radius;
+	var y = this.category.offY() * radius;
+	this.position = new Point(central.x + x, central.y - y);
 }
 
 function Point(x, y){
@@ -201,8 +247,4 @@ function Point(x, y){
 Point.prototype.relativeTo = function(p){
 	var cosine = dot / length1 / length2;
 	return new Point();
-}
-
-function Shape(){
-	
 }
