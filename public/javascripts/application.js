@@ -37,23 +37,8 @@ Category.prototype.offY = function(){
 	return (this.toolFactor * sinpi4 + this.techniqueFactor * sin3pi4 + this.platformFactor * sin5pi4 + this.languageFactor * sin7pi4)/100;
 }
 
-function Grade(grade){
-	this.grade = grade;	
-}
-if(typeof Shape == "undefined"){
-	var Shape = {
-		Circle: {id:1}, 
-		Triangle: {id:2},
-		Square: {id:3},
-		Hexagon: {id:4},
-		Octagon: {id:5},		
-		FiveStar: {id:6}		
-	}
-}
 if(typeof Community == "undefined"){
-
     var Community = {
-
     Java:{
 		id: 0, 
 		color: "red"
@@ -88,31 +73,31 @@ if(typeof License == "undefined"){
     var License = {
 		Commercial:{ 
 			id:0,
-			shape: Shape.Circle
+			shape: new Circle()
 		},
 		OpenSource:{
 			id:1,
-			shape: Shape.Triangle
+			shape: new Triangle()
 		},
 		BSD:{ 
 			id:2,
-			shape: Shape.Triangle
+			shape: new Triangle()
 		},
 		Apache:{ 
 			id:3,
-			shape: Shape.Square
+			shape: new Square()
 		},
 		GPL:{ 
 			id:4,
-			shape: Shape.Hexagon
+			shape: new Hexagon()
 		},
 		LGPL:{ 
 			id:5,
-			shape: Shape.Octagon
+			shape: new Octagon()
 		},
 		NA:{
 			id:-1,
-			shape: Shape.FiveStar
+			shape: new FiveStar()
 		}
 	};
 }
@@ -193,18 +178,8 @@ TechnologySky.prototype.drawCoordinates = function(){
 
 TechnologySky.prototype.drawStars =  function(){
 	for(var i = 0; i < this.stars.length; i++){
-		this.drawStar(this.stars[i]);
+		this.stars[i].draw(this.context);
 	}
-}
-
-TechnologySky.prototype.drawStar =  function(star){
-	var position = star.getPosition(this.central);
-	
-	this.context.beginPath();
-	this.context.arc(position.x, position.y, star.getRadius(), 0, Math.PI * 2, false);
-	this.context.closePath();
-	this.context.fillStyle = star.getColor();
-	this.context.fill();
 }
 
 function Star(category, community, license, popularity, value){
@@ -212,21 +187,7 @@ function Star(category, community, license, popularity, value){
 	this.community = community;
 	this.license = license;
 	this.popularity = popularity < 0 ? 0 : (popularity > 5 ? 5 : popularity);	
-	this.value = value < 0 ? 0 : (value > 5 ? 5 : value);	
-}
-
-Star.prototype.getPosition = function(central){
-	return this.position;
-}
-
-Star.prototype.getRadius = function(){
-	return this.popularity * PopularityLevelFactor;
-}
-Star.prototype.getColor = function(){
-	return this.community.color;
-}
-Star.prototype.getShape = function(){
-	return this.license.shape;
+	this.value = value < 0 ? 0 : (value > 5 ? 5 : value);
 }
 
 Star.prototype.init = function(central, maxRadius){
@@ -239,12 +200,11 @@ Star.prototype.init = function(central, maxRadius){
 	this.position = new Point(central.x + x, central.y - y);
 }
 
+Star.prototype.draw =  function(context){
+	this.license.shape.draw(context, this.position, this.popularity, this.community.color);
+}
+
 function Point(x, y){
 	this.x = x;
 	this.y = y;
-}
-
-Point.prototype.relativeTo = function(p){
-	var cosine = dot / length1 / length2;
-	return new Point();
 }
