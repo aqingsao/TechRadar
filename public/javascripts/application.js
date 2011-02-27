@@ -20,7 +20,7 @@ function TechnologySky(technologySkyId, stars) {
 	this.context = canvas.getContext("2d");
 	this.width = canvas.width;
 	this.height = canvas.height;
-	this.radius = Math.min(this.height, this.width) / 2;
+	this.radius = Math.min(this.height, this.width) / 2 - 20;
 	this.central = new Point(this.width / 2, this.height/2);
     
 	this.stars = stars;
@@ -153,7 +153,8 @@ function MouseoverEventHandler(context, canvas) {
 		
 		if (this.context.isPointInPath(currentPoint.x, currentPoint.y)) {
 			this.activeStar = star;
+			log("Mouse over " + star.name);
 		}
-		mouseOverHandler(this.context, this.activeStar);
+		// mouseOverHandler(this.context, this.activeStar);
 	}
 }
