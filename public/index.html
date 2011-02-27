@@ -5,22 +5,26 @@
     <LINK rel="stylesheet" href="stylesheets/main.css">
     <title>Technology Sky</title>
     <script type="text/javascript" src="./javascripts/jquery-1.5.js"></script>
+    <script type="text/javascript" src="./javascripts/jquery.tooltip.js"></script>
+    <script type="text/javascript" src="./javascripts/debug.js"></script>
     <script type="text/javascript" src="./javascripts/shape.js"></script>
     <script type="text/javascript" src="./javascripts/application.js"></script>
     <script>
         $(document).ready(function(){
-			var java = new Star(new Category(100, 0, 0, 0), Community.Java, License.OpenSource, 5, 5);
-			var csharp = new Star(new Category(0, 100, 0, 0), Community.DotNet, License.Commercial, 4, 4);
-			var dbMigration = new Star(new Category(0, 0, 100, 0), Community.Database, License.Commercial, 3, 3);
-			var jquery = new Star(new Category(0, 0, 0, 100), Community.JavaScript, License.Commercial, 2, 2);
-			var js = new Star(new Category(25, 25, 25, 25), Community.JavaScript, License.Commercial, 1, 1);
+			var java = new Star("Java", new Category(100, 0, 0, 0), Community.Java, License.OpenSource, 5, 5);
+			var csharp = new Star("csharp", new Category(0, 100, 0, 0), Community.DotNet, License.Commercial, 4, 4);
+			var dbMigration = new Star("db migration", new Category(0, 0, 100, 0), Community.Database, License.Apache, 3, 3);
+			var jquery = new Star("jQuery", new Category(0, 0, 0, 100), Community.JavaScript, License.Commercial, 2, 2);
+			var js = new Star("JavaScript", new Category(25, 25, 25, 25), Community.JavaScript, License.Commercial, 1, 1);
 			var technologySky = new TechnologySky("canvas", [java, csharp, dbMigration, jquery, js]);
 			technologySky.draw();
+			
+			$("#debug").tooltip();
 		});
     </script>
 </head>
 
-<div id="wrapper">
+<div id="wrapper" style="float:left">
 	<section>
 	        <header class="clearfix">
 	            <h1>Technology Sky</h1>
@@ -29,12 +33,13 @@
 	    </section>
 	
     <section>
+		
             <canvas id="canvas" width="800" height="800">
                 Your browser does not support Canvas, please install Firefox 4.0 or Safari/chrome.
             </canvas>
 
-        <div id="sidebar" style="display:none">
-            <div class="sub-feature" id="connect">
+        <div id="sidebar">
+            <div class="sub-feature" id="connect" style="display:none">
                 <h3>Hi, h3</h3>
                 <ul class="link">
                     <li><a href="./moreFunctions.html">Other links</a></li>
@@ -42,11 +47,14 @@
             </div>
         </div>
     </section>
-	<section>
+	<section style="margin-top:30px">
 		<p id="sub-links">
            Author: <a href="http://xiaoqing.me">Xiaoqing Zhang</a>. All rights reserved. 
         </p>
 	</section>
+</div>
+<div id="debug" style="float:right; width:300px;">
+	Log messages:
 </div>
 </body>
 </html>

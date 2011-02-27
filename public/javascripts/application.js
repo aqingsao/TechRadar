@@ -14,105 +14,35 @@ var technologySkyQuadrantsLeftMargin = 30;
 var technologySkyQuadrantsUpMargin = 30;
 
 var PopularityLevelFactor = 2;
-
-var cospi4 = Math.cos(Math.PI / 4);
-var cos3pi4 = Math.cos(Math.PI * 3 / 4);
-var cos5pi4 = Math.cos(Math.PI * 5 / 4);
-var cos7pi4 = Math.cos(Math.PI * 7 / 4);
-var sinpi4 = Math.sin(Math.PI / 4);
-var sin3pi4 = Math.sin(Math.PI * 3 / 4);
-var sin5pi4 = Math.sin(Math.PI * 5 / 4);
-var sin7pi4 = Math.sin(Math.PI * 7 / 4);
-
-function Category(techniqueFactor, toolFactor, platformFactor, languageFactor){
-	this.techniqueFactor = techniqueFactor;
-	this.toolFactor = toolFactor;
-	this.languageFactor = languageFactor;
-	this.platformFactor = platformFactor;	
-}
-Category.prototype.offX = function(){
-	return (this.toolFactor * cospi4 + this.techniqueFactor * cos3pi4 + this.platformFactor * cos5pi4 + this.languageFactor * cos7pi4)/100;
-}
-Category.prototype.offY = function(){
-	return (this.toolFactor * sinpi4 + this.techniqueFactor * sin3pi4 + this.platformFactor * sin5pi4 + this.languageFactor * sin7pi4)/100;
-}
-
-if(typeof Community == "undefined"){
-    var Community = {
-    Java:{
-		id: 0, 
-		color: "red"
-	},
-    DotNet:{
-		id: 1, 
-		color: "blue"
-	},
-    Database:{
-		id: 2, 
-		color: "green"
-	},
-    Scala:{
-		id:3, 
-		color:"pink"
-	},
-    Html:{
-		id:4, 
-		color:"yellow"
-	},
-    JavaScript:{
-		id:5, 
-		color:"orange"
-	}, 
-	NA:{
-		id:-1,
-		color:"white"
-	}
-	};
-}
-if(typeof License == "undefined"){
-    var License = {
-		Commercial:{ 
-			id:0,
-			shape: new Circle()
-		},
-		OpenSource:{
-			id:1,
-			shape: new Triangle()
-		},
-		BSD:{ 
-			id:2,
-			shape: new Triangle()
-		},
-		Apache:{ 
-			id:3,
-			shape: new Square()
-		},
-		GPL:{ 
-			id:4,
-			shape: new Hexagon()
-		},
-		LGPL:{ 
-			id:5,
-			shape: new Octagon()
-		},
-		NA:{
-			id:-1,
-			shape: new FiveStar()
-		}
-	};
-}
-
+var currentPoint = null;
 function TechnologySky(technologySkyId, stars) {
-	var canvas = document.getElementById(technologySkyId);
+ 	var canvas = document.getElementById(technologySkyId);
 	this.context = canvas.getContext("2d");
 	this.width = canvas.width;
 	this.height = canvas.height;
 	this.radius = Math.min(this.height, this.width) / 2;
 	this.central = new Point(this.width / 2, this.height/2);
-	
+    
 	this.stars = stars;
 	for(var i = 0; i < this.stars.length; i++){
 		this.stars[i].init(this.central, this.radius);
+	}
+	
+	var me = this;
+	var c = $("#" + technologySkyId)
+    c.mousemove(function(e) {
+        me.mousemove(c, e);
+    });
+	this.mouseoverEventHandler = new MouseoverEventHandler(this.context, c);
+	this.mouseOverHandler = function(context, star){
+		if(currentPoint == null){
+			return;
+		}
+		context.font="16pt Calibri";
+		context.fillStyle="black";
+		context.textBaseline = "top";
+		context.textAlign = "right";
+		context.fillText(star == null? "" : star.name, currentPoint.x, currentPoint.y);	
 	}
 }
 
@@ -175,14 +105,20 @@ TechnologySky.prototype.drawCoordinates = function(){
 	this.context.strokeStyle = technologySkyCoordinateColor;
 	this.context.stroke();
 }
-
 TechnologySky.prototype.drawStars =  function(){
 	for(var i = 0; i < this.stars.length; i++){
 		this.stars[i].draw(this.context);
+		this.mouseoverEventHandler.addPath(this.stars[i], this.mouseOverHandler);
 	}
 }
+TechnologySky.prototype.mousemove = function(canvas, e){
+    e.preventDefault();
+    currentPoint = new Point(e.clientX - canvas.offset().left, e.clientY - canvas.offset().top);
+    this.draw();
+}
 
-function Star(category, community, license, popularity, value){
+function Star(name, category, community, license, popularity, value){
+	this.name = name;
 	this.category = category;
 	this.community = community;
 	this.license = license;
@@ -192,19 +128,32 @@ function Star(category, community, license, popularity, value){
 
 Star.prototype.init = function(central, maxRadius){
 	var radius = (5 - this.value)/5 * maxRadius;
-	if(radius < maxRadius / 20){
-		radius = maxRadius / 20;
-	}
+	// if(radius < maxRadius / 20){
+		// radius = maxRadius / 20;
+	// }
 	var x = this.category.offX() * radius;
 	var y = this.category.offY() * radius;
 	this.position = new Point(central.x + x, central.y - y);
 }
 
 Star.prototype.draw =  function(context){
-	this.license.shape.draw(context, this.position, this.popularity, this.community.color);
+	this.license.shape.draw(context, this.position, this.popularity * PopularityLevelFactor, this.community.color);
 }
 
-function Point(x, y){
-	this.x = x;
-	this.y = y;
+function MouseoverEventHandler(context, canvas) {
+	this.context = context;
+	this.canvas = canvas;
+	this.activeStar = null;
+ 
+	this.addPath = function(star, mouseOverHandler) {
+		this.activeStar = null;
+		if(currentPoint == null){
+			return;
+		}
+		
+		if (this.context.isPointInPath(currentPoint.x, currentPoint.y)) {
+			this.activeStar = star;
+		}
+		mouseOverHandler(this.context, this.activeStar);
+	}
 }
