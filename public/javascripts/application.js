@@ -29,21 +29,10 @@ function TechnologySky(technologySkyId, stars) {
 	}
 	
 	var me = this;
-	var c = $("#" + technologySkyId)
-    c.mousemove(function(e) {
-        me.mousemove(c, e);
+	this.canv = $("#" + technologySkyId)
+    this.canv.mousemove(function(e) {
+        me.mousemove(e);
     });
-	this.mouseoverEventHandler = new MouseoverEventHandler(this.context, c);
-	this.mouseOverHandler = function(context, star){
-		if(currentPoint == null){
-			return;
-		}
-		context.font="16pt Calibri";
-		context.fillStyle="black";
-		context.textBaseline = "top";
-		context.textAlign = "right";
-		context.fillText(star == null? "" : star.name, currentPoint.x, currentPoint.y);	
-	}
 }
 
 TechnologySky.prototype.draw = function(){
@@ -108,12 +97,22 @@ TechnologySky.prototype.drawCoordinates = function(){
 TechnologySky.prototype.drawStars =  function(){
 	for(var i = 0; i < this.stars.length; i++){
 		this.stars[i].draw(this.context);
-		this.mouseoverEventHandler.addPath(this.stars[i], this.mouseOverHandler);
+		this.addPath(this.stars[i]);
 	}
 }
-TechnologySky.prototype.mousemove = function(canvas, e){
-    e.preventDefault();
-    currentPoint = new Point(e.clientX - canvas.offset().left, e.clientY - canvas.offset().top);
+TechnologySky.prototype.addPath = function(star) {
+	if(currentPoint == null){
+		return;
+	}
+	
+	if (this.context.isPointInPath(currentPoint.x, currentPoint.y)) {
+		log("in path");
+	}
+}
+
+TechnologySky.prototype.mousemove = function(e){
+    e.preventDefault();  
+    currentPoint = new Point(e.clientX - this.canv.offset().left + $(window).scrollLeft(), e.clientY - this.canv.offset().top + $(window).scrollTop() );
     this.draw();
 }
 
@@ -135,26 +134,7 @@ Star.prototype.init = function(central, maxRadius){
 	var y = this.category.offY() * radius;
 	this.position = new Point(central.x + x, central.y - y);
 }
-
+
 Star.prototype.draw =  function(context){
 	this.license.shape.draw(context, this.position, this.popularity * PopularityLevelFactor, this.community.color);
-}
-
-function MouseoverEventHandler(context, canvas) {
-	this.context = context;
-	this.canvas = canvas;
-	this.activeStar = null;
- 
-	this.addPath = function(star, mouseOverHandler) {
-		this.activeStar = null;
-		if(currentPoint == null){
-			return;
-		}
-		
-		if (this.context.isPointInPath(currentPoint.x, currentPoint.y)) {
-			this.activeStar = star;
-			log("Mouse over " + star.name);
-		}
-		// mouseOverHandler(this.context, this.activeStar);
-	}
 }
