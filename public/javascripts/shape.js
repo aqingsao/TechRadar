@@ -18,8 +18,9 @@ var sin2pi5 = Math.sin(Math.PI * 2 / 5);
 var cos2pi5 = Math.cos(Math.PI * 2 / 5);
 var tan3pi10 = Math.tan(Math.PI * 3 / 10);
 var sinpi5 = Math.sin(Math.PI / 5);
-var sinpi10 = Math.sin(Math.PI / 10);
-var cospi10 = Math.cos(Math.PI / 10);
+var cospi5 = Math.cos(Math.PI / 5);
+var sin3pi10 = Math.sin(Math.PI * 3 / 10);
+var cos3pi10 = Math.cos(Math.PI * 3 / 10);
 
 function Shape(){}
 Shape.prototype.draw = function(context, position, size, color){
@@ -59,15 +60,15 @@ FiveStar.prototype.drawPath = function(context, position, size){
 	
 	context.lineTo(position.x + size * cos2pi5, position.y - size * cos2pi5 * tan3pi10);
 	context.lineTo(position.x + size * (1 + cos2pi5), position.y - size * cos2pi5 * tan3pi10);
-	context.lineTo(position.x + size * (cos2pi5 / sinpi5 * cospi10), position.y + size * (cos2pi5 / sinpi5 * sinpi10));
-	context.lineTo(position.x + size * (cos2pi5 / sinpi5 * cospi10 + cos2pi5), position.y + (cos2pi5 / sinpi5 * sinpi10 + sin2pi5));
+	context.lineTo(position.x + size * ( 1 + 2 * cos2pi5) * cos2pi5, position.y + size * (sinpi5 - cos2pi5/sinpi5 * cospi5));
+	context.lineTo(position.x + size * 2　*　( 1 +　cos2pi5) * cos2pi5, position.y + size * (cos2pi5 / sinpi5 * sin3pi10 + sin2pi5));
+	
+	context.lineTo(position.x, position.y + size * (cos2pi5 / sinpi5 * sin3pi10));
 	
-	context.lineTo(position.x, position.y + size * (cos2pi5 / sinpi5 * sinpi10));
-	
-	context.lineTo(position.x - size * (cos2pi5 / sinpi5 * cospi10 + cos2pi5), position.y + (cos2pi5 / sinpi5 * sinpi10 + sin2pi5));
-	context.lineTo(position.x - size * (cos2pi5 / sinpi5 * cospi10), position.y + size * (cos2pi5 / sinpi5 * sinpi10));
-	context.lineTo(position.x - size * cos2pi5, position.y - size * cos2pi5 * tan3pi10);
+	context.lineTo(position.x - size * 2 *　( 1 +　cos2pi5) * cos2pi5, position.y + size * (cos2pi5 / sinpi5 * sin3pi10 + sin2pi5));
+	context.lineTo(position.x - size * ( 1 + 2 * cos2pi5) * cos2pi5, position.y + size * (sinpi5 - cos2pi5/sinpi5 * cospi5));
 	context.lineTo(position.x - size * (1 + cos2pi5), position.y - size * cos2pi5 * tan3pi10);
+	context.lineTo(position.x - size * cos2pi5, position.y - size * cos2pi5 * tan3pi10);
 }
 
 function Category(techniqueFactor, toolFactor, platformFactor, languageFactor){
