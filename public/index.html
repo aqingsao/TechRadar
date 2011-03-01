@@ -13,9 +13,9 @@
         $(document).ready(function(){
 			var java = new Star("Java", new Category(100, 0, 0, 0), Community.Java, License.OpenSource, 5, 5);
 			var csharp = new Star("csharp", new Category(0, 100, 0, 0), Community.DotNet, License.Commercial, 4, 4);
-			var dbMigration = new Star("db migration", new Category(0, 0, 100, 0), Community.Database, License.Apache, 3, 3);
-			var jquery = new Star("jQuery", new Category(0, 0, 0, 100), Community.JavaScript, License.Commercial, 2, 2);
-			var js = new Star("JavaScript", new Category(25, 25, 25, 25), Community.JavaScript, License.Commercial, 1, 1);
+			var dbMigration = new Star("db migration", new Category(0, 0, 100, 0), Community.Database, License.OpenSource, 3, 3);
+			var jquery = new Star("jQuery", new Category(0, 0, 0, 100), Community.JavaScript, License.OpenSource, 2, 2);
+			var js = new Star("JavaScript", new Category(25, 25, 25, 25), Community.JavaScript, License.NA, 1, 1);
 			var technologySky = new TechnologySky("canvas", [java, csharp, dbMigration, jquery, js]);
 			technologySky.draw();
 			
