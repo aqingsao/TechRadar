@@ -102,5 +102,19 @@ function prepareRadarItems(){
 	items.push(new Item("GWT", new Info("desc", "homepage", false), new Position(240, 90)));//60
 	items.push(new Item("RIA", new Info("desc", "homepage", false), new Position(260, 90)));//61
 	
+	items.push(new Item("Ruby", new Info("desc", "homepage", false), new Position(310, 8)));//62
+	items.push(new Item("C# 4.0", new Info("desc", "homepage", false), new Position(350, 20)));//63
+	items.push(new Item("JRuby", new Info("desc", "homepage", false), new Position(305, 22)));//64
+	items.push(new Item("JavaScript as a first class language", new Info("desc", "homepage", false), new Position(280, 22)));//65
+	items.push(new Item("SASS, SCSS, and LESS", new Info("desc", "homepage", true), new Position(305, 52)));//66
+	items.push(new Item("DSL’s", new Info("desc", "homepage", false), new Position(330, 48)));//67
+	items.push(new Item("HAML", new Info("desc", "homepage", true), new Position(320, 52)));//68
+	items.push(new Item("Scala", new Info("desc", "homepage", true), new Position(310, 50)));//69
+	items.push(new Item("Groovy", new Info("desc", "homepage", false), new Position(290, 50)));//70
+	items.push(new Item("HTML 5", new Info("desc", "homepage", true), new Position(280, 51)));//71
+	items.push(new Item("Java language end of life", new Info("desc", "homepage", false), new Position(335, 72)));//72
+	items.push(new Item("F#", new Info("desc", "homepage", false), new Position(325, 66)));//73
+	items.push(new Item("Clojure", new Info("desc", "homepage", false), new Position(310, 64)));//74
+	
 	return items;
 }
