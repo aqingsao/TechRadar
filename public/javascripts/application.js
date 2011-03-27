@@ -45,7 +45,7 @@ function prepareRadarItems(){
 	items.push(new Item("Progressive Enhancement", new Info("desc", "homepage", true), new Position(175, 50)));//5
 	items.push(new Item("Automation of technical tests", new Info("desc", "homepage", false), new Position(165, 50)));//6
 	items.push(new Item("Automate database deployment", new Info("desc", "homepage", true), new Position(155, 45)));//7
-	items.push(new Item("Concurrency abstractions and patterns", new Info("desc", "homepage", false), new Position(152, 55)));//8
+	items.push(new Item("Concurrency abstractions and patterns", new Info("desc", "homepage", true), new Position(152, 55)));//8
 	items.push(new Item("Capability modelling", new Info("desc", "homepage", false), new Position(145, 52)));//9
 	items.push(new Item("Acceptance test of journeys", new Info("desc", "homepage", true), new Position(135, 55)));//10
 	items.push(new Item("DevOps", new Info("desc", "homepage", true), new Position(125, 45)));//11
@@ -60,6 +60,27 @@ function prepareRadarItems(){
 	items.push(new Item("Evolutionary database", new Info("desc", "homepage", false), new Position(150, 20)));//20
 	items.push(new Item("Platform roadmaps", new Info("desc", "homepage", false), new Position(105, 18)));//21
 	items.push(new Item("Build pipelines", new Info("desc", "homepage", false), new Position(155, 10)));//22
+	
+	items.push(new Item("Subversion", new Info("desc", "homepage", false), new Position(45, 8)));//23
+	items.push(new Item("Squid", new Info("desc", "homepage", false), new Position(80, 25)));//24
+	items.push(new Item("Infrastructure as code", new Info("desc", "homepage", true), new Position(40, 35)));//25
+	items.push(new Item("Apache camel", new Info("desc", "homepage", false), new Position(85, 55)));//26
+	items.push(new Item("Message buses without smarts", new Info("desc", "homepage", false), new Position(85, 45)));//27
+	items.push(new Item("Next gen test tools", new Info("desc", "homepage", false), new Position(70, 48)));//28
+	items.push(new Item("Splunk", new Info("desc", "homepage", true), new Position(55, 50)));//29
+	items.push(new Item("NoSQL", new Info("desc", "homepage", false), new Position(40, 55)));//30
+	items.push(new Item("Mercurial", new Info("desc", "homepage", false), new Position(20, 45)));//31
+	items.push(new Item("Git", new Info("desc", "homepage", false), new Position(10, 50)));//32
+	items.push(new Item("Cross mobile platforms", new Info("desc", "homepage", false), new Position(80, 70)));//33
+	items.push(new Item("Deltacloud", new Info("desc", "homepage", true), new Position(50, 72)));//34
+	items.push(new Item("Github", new Info("desc", "homepage", false), new Position(60, 68)));//35
+	items.push(new Item("Vagrant", new Info("desc", "homepage", true), new Position(45, 73)));//36
+	items.push(new Item("Restfulie", new Info("desc", "homepage", false), new Position(35, 70)));//37
+	items.push(new Item("WCF HTTP", new Info("desc", "homepage", true), new Position(28, 55)));//38
+	items.push(new Item("RDF triple stores", new Info("desc", "homepage", false), new Position(22, 75)));//39
+	items.push(new Item("API management services", new Info("desc", "homepage", true), new Position(10, 72)));//40
+	items.push(new Item("ESB", new Info("desc", "homepage", false), new Position(22, 90)));//41
+
 	
 	return items;
 }
