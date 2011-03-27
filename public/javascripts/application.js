@@ -81,6 +81,26 @@ function prepareRadarItems(){
 	items.push(new Item("API management services", new Info("desc", "homepage", true), new Position(10, 72)));//40
 	items.push(new Item("ESB", new Info("desc", "homepage", false), new Position(22, 90)));//41
 
+	items.push(new Item("KVM", new Info("desc", "homepage", true), new Position(245, 12)));//42
+	items.push(new Item("Android", new Info("desc", "homepage", false), new Position(200, 25)));//43
+	items.push(new Item("Atom", new Info("desc", "homepage", true), new Position(230, 18)));//44
+	items.push(new Item("Heroku", new Info("desc", "homepage", false), new Position(185, 56)));//45
+	items.push(new Item("Facebook as business platform", new Info("desc", "homepage", false), new Position(205, 55)));//46
+	items.push(new Item("iPad", new Info("desc", "homepage", true), new Position(220, 53)));//47
+	items.push(new Item("EC2 & S3", new Info("desc", "homepage", false), new Position(235, 53)));//48
+	items.push(new Item("Mobile Web", new Info("desc", "homepage", true), new Position(250, 51)));//49
+	items.push(new Item("GPGPU", new Info("desc", "homepage", true), new Position(187, 75)));//50
+	items.push(new Item("Node.js", new Info("desc", "homepage", true), new Position(200, 68)));//51
+	items.push(new Item("vFabric", new Info("desc", "homepage", true), new Position(210, 75)));//52
+	items.push(new Item("OpenStack", new Info("desc", "homepage", true), new Position(220, 75)));//53
+	items.push(new Item("Application appliances", new Info("desc", "homepage", false), new Position(230, 73)));//54
+	items.push(new Item("RDFa", new Info("desc", "homepage", false), new Position(235, 65)));//55
+	items.push(new Item("OAuth", new Info("desc", "homepage", false), new Position(245, 68)));//56
+	items.push(new Item("App containers", new Info("desc", "homepage", false), new Position(255, 68)));//57
+	items.push(new Item("Azure", new Info("desc", "homepage", false), new Position(265, 72)));//58
+	items.push(new Item("WS-* beyond basic profile", new Info("desc", "homepage", false), new Position(200, 90)));//59
+	items.push(new Item("GWT", new Info("desc", "homepage", false), new Position(240, 90)));//60
+	items.push(new Item("RIA", new Info("desc", "homepage", false), new Position(260, 90)));//61
 	
 	return items;
 }
