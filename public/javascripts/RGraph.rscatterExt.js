@@ -57,7 +57,7 @@ RGraph.Rscatter.prototype.DrawLabels = function ()
 
     // Draw any labels
     if (typeof(this.Get('chart.labels')) == 'object' && this.Get('chart.labels')) {
-        this.DrawCircularLabels(context, this.Get('chart.labels'), font_face, font_size, r);
+        this.DrawCircularLabels(context, this.Get('chart.labels'), font_face, 22, r);
     }
 
 
@@ -67,10 +67,10 @@ RGraph.Rscatter.prototype.DrawLabels = function ()
     // The "North" axis labels
     if (axes.indexOf('n') > -1) {
         // RGraph.Text(context,font_face,font_size,this.centerx,this.centery - ((r) * 0.2),String(this.scale[0]),'center','center',true,false,color);
-        RGraph.Text(context, font_face, font_size, this.centerx, this.centery - ((r) * 0.4), String(this.scale[1]), 'center', 'center', true, false, color);
-        RGraph.Text(context, font_face, font_size, this.centerx, this.centery - ((r) * 0.6), String(this.scale[2]), 'center', 'center', true, false, color);
-        RGraph.Text(context, font_face, font_size, this.centerx, this.centery - ((r) * 0.8), String(this.scale[3]), 'center', 'center', true, false, color);
-        RGraph.Text(context, font_face, font_size, this.centerx, this.centery - r, String(this.scale[4]), 'center', 'center', true, false, color);
+        RGraph.Text(context, font_face, font_size, this.centerx, this.centery - ((r) * 0.4), String(this.scale[1]), 'center', 'center');
+        RGraph.Text(context, font_face, font_size, this.centerx, this.centery - ((r) * 0.6), String(this.scale[2]), 'center', 'center');
+        RGraph.Text(context, font_face, font_size, this.centerx, this.centery - ((r) * 0.8), String(this.scale[3]), 'center', 'center');
+        RGraph.Text(context, font_face, font_size, this.centerx, this.centery - r, String(this.scale[4]), 'center', 'center');
     }
 
     /**
@@ -93,12 +93,12 @@ RGraph.Rscatter.prototype.DrawRscatter = function ()
 
         var d1 = data[i][0];
         var d2 = data[i][1];
-        var a   = d1 / (180 / Math.PI); // RADIANS
-        var r   = ( (d2 - this.Get('chart.ymin')) / (this.max - this.Get('chart.ymin')) ) * this.radius;
-        var x   = Math.sin(a) * r;
-        var y   = Math.cos(a) * r;
-        var color = data[i][2] ? data[i][2] : this.Get('chart.colors.default');
-        var tooltip = data[i][3] ? data[i][3] : null;
+        var a   = d1 / 180 * Math.PI; // RADIANS
+        var r   = d2 / 100 * this.radius;
+        var x   = Math.cos(a) * r;
+        var y   = Math.sin(a) * r;
+        var color = data[i][2];
+        var tooltip = data[i][3];
         
         if (tooltip && tooltip.length) {
             this.hasTooltips = true;
@@ -111,10 +111,10 @@ RGraph.Rscatter.prototype.DrawRscatter = function ()
         y = this.centery - y;
 
 
-	    var tickmarks    = this.Get('chart.tickmarks');
-		var ticksize = data[i][4] ? data[i][4] : this.Get('chart.ticksize');	    
+	    var tickmarks    = data[i][5];
+		var ticksize = data[i][4];	    
         this.DrawTick(x, y, color, tickmarks, ticksize);
-        
+		        
         // Populate the coords array with the coordinates and the tooltip
         this.coords.push([x, y, color, tooltip]);
     }
@@ -198,7 +198,7 @@ RGraph.Rscatter.prototype.DrawCircularLabels = function (context, labels, font_f
         var a = (360 / labels.length) * (i + 1) - (360 / (labels.length * 2));
         var a = a - 90 + (this.Get('chart.labels.position') == 'edge' ? ((360 / labels.length) / 2) : 0);
 
-        var x = Math.cos(a / 57.29577866666) * (r + 40);
+        var x = Math.cos(a / 57.29577866666) * (r + 100);
         var y = Math.sin(a / 57.29577866666) * (r + 10);
 
         RGraph.Text(context, font_face, font_size, this.centerx + x, this.centery + y, String(labels[i]), 'center', 'center');

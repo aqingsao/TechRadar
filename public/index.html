@@ -4,7 +4,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <LINK rel="stylesheet" href="stylesheets/main.css">
     <title>Technology Radar</title>
-    <script type="text/javascript" src="./javascripts/shape.js"></script>
     <script type="text/javascript" src="./javascripts/application.js"></script>
 	<script src="./javascripts/rgraph/RGraph.common.core.js" ></script>
     <script src="./javascripts/rgraph/RGraph.common.context.js" ></script>
@@ -16,40 +15,30 @@
     <script>
         window.onload = function ()
         {
-            // Create the data
-            var data = [];
-            for (var i=0; i<75; i++) {
-                data.push([RGraph.random(0, 360), i * RGraph.random(0, 10), 'blue', getTooltip('title', 'description'), RGraph.random(3, 6)]);
-            }radar
+            var items = prepareRadarItems();
+			var data = toRadarData(items);
 
             var radar = new RGraph.Rscatter('canvas', data);
 			radar.Set('chart.text.color', "#386077");
-			radar.Set('chart.text.font', "bold 16px sans-serif");
+			radar.Set('chart.text.font', "Verdana");
+			radar.Set('chart.text.size', 12);
 			
             radar.Set('chart.labels.axes', 'n');
             radar.Set('chart.labels.position', 'edge');
 
-            radar.Set(' chart.key.background', 'black');
-
-			radar.Set('chart.gutter', 30);	
+			radar.Set('chart.gutter', 60);	
             radar.Set('chart.labels', ['Tools', '', 'Languages', '', 'Platforms', '', 'Techniques', '']);
-            radar.Set('chart.tickmarks', 'diamond');
 
             radar.Set('chart.tooltips.effect', 'fade');
             radar.Draw();
         }
-
-	    function getTooltip(title, description)
-	    {
-	        return "<h3>" + title + "</h3> <div>" + description + "</div>";
-	    }
     </script>
 </head>
 
 <div id="wrapper" style="float:left">
 	<section>
 	        <header class="clearfix">
-	            <h1>Technology Sky</h1>
+	            <h1>Technology Radar</h1>
 	            <p onclick="test();">Be Keen on Technology</p>
 	        </header>
 	    </section>
