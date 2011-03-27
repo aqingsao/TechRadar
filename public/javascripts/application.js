@@ -33,6 +33,8 @@ function TechnologySky(technologySkyId, stars) {
     this.canv.mousemove(function(e) {
         me.mousemove(e);
     });
+
+	$("#canvas").prepareTip();
 }
 
 TechnologySky.prototype.draw = function(){
@@ -106,7 +108,10 @@ TechnologySky.prototype.addPath = function(star) {
 	}
 	
 	if (this.context.isPointInPath(currentPoint.x, currentPoint.y)) {
-		log("in path");
+		this.canv.prepareTip().showTip(star, currentPoint);			
+	}
+	else{
+		this.canv.prepareTip().hideTip();			
 	}
 }
 

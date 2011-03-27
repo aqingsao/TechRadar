@@ -3,24 +3,46 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <LINK rel="stylesheet" href="stylesheets/main.css">
-    <title>Technology Sky</title>
-    <script type="text/javascript" src="./javascripts/jquery-1.5.js"></script>
-    <script type="text/javascript" src="./javascripts/jquery.tooltip.js"></script>
-    <script type="text/javascript" src="./javascripts/debug.js"></script>
+    <title>Technology Radar</title>
     <script type="text/javascript" src="./javascripts/shape.js"></script>
     <script type="text/javascript" src="./javascripts/application.js"></script>
+	<script src="./javascripts/rgraph/RGraph.common.core.js" ></script>
+    <script src="./javascripts/rgraph/RGraph.common.context.js" ></script>
+    <script src="./javascripts/rgraph/RGraph.common.tooltips.js" ></script>
+    <script src="./javascripts/rgraph/RGraph.common.annotate.js" ></script>
+    <script src="./javascripts/rgraph/RGraph.rscatter.js" ></script>
+    <script src="./javascripts/RGraph.rscatterExt.js" ></script>
+    
     <script>
-        $(document).ready(function(){
-			var java = new Star("Java", new Category(100, 0, 0, 0), Community.Java, License.OpenSource, 5, 5);
-			var csharp = new Star("csharp", new Category(0, 100, 0, 0), Community.DotNet, License.Commercial, 4, 4);
-			var dbMigration = new Star("db migration", new Category(0, 0, 100, 0), Community.Database, License.OpenSource, 3, 3);
-			var jquery = new Star("jQuery", new Category(0, 0, 0, 100), Community.JavaScript, License.OpenSource, 2, 2);
-			var js = new Star("JavaScript", new Category(25, 25, 25, 25), Community.JavaScript, License.NA, 1, 1);
-			var technologySky = new TechnologySky("canvas", [java, csharp, dbMigration, jquery, js]);
-			technologySky.draw();
+        window.onload = function ()
+        {
+            // Create the data
+            var data = [];
+            for (var i=0; i<75; i++) {
+                data.push([RGraph.random(0, 360), i * RGraph.random(0, 10), 'blue', getTooltip('title', 'description'), RGraph.random(3, 6)]);
+            }radar
+
+            var radar = new RGraph.Rscatter('canvas', data);
+			radar.Set('chart.text.color', "#386077");
+			radar.Set('chart.text.font', "bold 16px sans-serif");
 			
-			$("#debug").tooltip();
-		});
+            radar.Set('chart.labels.axes', 'n');
+            radar.Set('chart.labels.position', 'edge');
+
+            radar.Set(' chart.key.background', 'black');
+
+			radar.Set('chart.gutter', 30);	
+            radar.Set('chart.labels', ['Tools', '', 'Languages', '', 'Platforms', '', 'Techniques', '']);
+            radar.Set('chart.tickmarks', 'diamond');
+
+            radar.Set('chart.tooltips.effect', 'fade');
+            radar.Draw();
+        }
+
+	    function getTooltip(title, description)
+	    {
+	        return "<h3>" + title + "</h3> <div>" + description + "</div>";
+	    }
     </script>
 </head>
 
@@ -28,16 +50,13 @@
 	<section>
 	        <header class="clearfix">
 	            <h1>Technology Sky</h1>
-	            <p>Be Keen on Technology</p>
+	            <p onclick="test();">Be Keen on Technology</p>
 	        </header>
 	    </section>
 	
     <section>
-		
-            <canvas id="canvas" width="800" height="800">
-                Your browser does not support Canvas, please install Firefox 4.0 or Safari/chrome.
-            </canvas>
-
+		<div>
+			<canvas id="canvas" height="800" width="800">[No canvas support]</canvas>
         <div id="sidebar">
             <div class="sub-feature" id="connect" style="display:none">
                 <h3>Hi, h3</h3>
@@ -53,8 +72,4 @@
         </p>
 	</section>
 </div>
-<div id="debug" style="float:right; width:300px;">
-	Log messages:
-</div>
-</body>
 </html>
