@@ -2,15 +2,15 @@ function prepareRadarItems(){
 	var items = new Array();
 	items.push(new Item("Database based integration", new Info("", "", false), new Position(130, 90)));//1
 	items.push(new Item("Scrum certification", new Info("", "", false), new Position(105, 90)));//2
-	items.push(new Item("Real-time business intelligence", new Info("", "", false), new Position(150, 72)));//3
-	items.push(new Item("Smart Systems", new Info("", "", true), new Position(125, 70)));//4
+	items.push(new Item("Real-time business intelligence", new Info("Business are running 24x7, but the information needed to make business decisions is being provided by outdated methods using ETL jobs in batch mode. The batch window is shrinking as businesses move to global markets and are open for longer durations. The data provided by these jobs is out of date by the time the business needs to make a decision. There is substantial value in taking the event as it happens in the transactional system and feeding it to the data warehouse so that the business can get near real-time business intelligence.", "", false), new Position(150, 72)));//3
+	items.push(new Item("Smart Systems", new Info("Smart Phones with a GPS, cameras and a screen are but one example of smart systems which are proliferating around us, fusing the real and the digital world. Augmented reality apps like Google Goggles, geolocation services & smart grids are just some of the possible applications.", "", true), new Position(125, 70)));//4
 	items.push(new Item("Progressive Enhancement", new Info("", "", true), new Position(175, 50)));//5
 	items.push(new Item("Automation of technical tests", new Info("", "", false), new Position(165, 50)));//6
 	items.push(new Item("Automate database deployment", new Info("", "", true), new Position(155, 45)));//7
 	items.push(new Item("Concurrency abstractions and patterns", new Info("", "", true), new Position(152, 55)));//8
 	items.push(new Item("Capability modelling", new Info("", "", false), new Position(145, 52)));//9
 	items.push(new Item("Acceptance test of journeys", new Info("", "", true), new Position(135, 55)));//10
-	items.push(new Item("DevOps", new Info("", "", true), new Position(125, 45)));//11
+	items.push(new Item("DevOps", new Info("The DevOps movement continues to gain traction as people pay more attention to the often-broken relationship between development and operations. DevOps promotes closer collaboration and joint responsibility between development and operations. DevOps applies agile practices to operations processes such as provisioning, change management and production monitoring and also brings production- like thinking, tools and environments to development. DevOps is a key underpinning for organizations wanting to achieve continuous delivery of application releases into production.", "", true), new Position(125, 45)));//11
 	items.push(new Item("Service choreography", new Info("", "", false), new Position(120, 55)));//12
 	items.push(new Item("Continuous deployment", new Info("", "", false), new Position(108, 55)));//13
 	items.push(new Item("Categorization & prioritization of technical debt", new Info("", "", true), new Position(98, 52)));//14

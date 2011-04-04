@@ -33,20 +33,13 @@ function Info(description, homePage, isNew){
 	this.homePage = homePage;
 	this.isNew = isNew;
 }
-function toRadarData(items){
-	var data = [];
-	for(var i = 0; i < items.length; i++){
-		data.push(items[i].toArray());
-	}
-	return data;
-}
 
 var animation;
 function startAnimation(items, id){	
 	var data = [];
  	animation = setInterval(function(){
 		drawRadar(data, items, id);
-	}, 300);
+	}, 20);
 }
 
 function drawRadar(data, items, id){

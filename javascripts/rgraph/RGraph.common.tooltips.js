@@ -184,6 +184,7 @@
         /**
         * Set the width on the tooltip so it doesn't resize if the window is resized
         */
+		if(width > 500) width = 500;
         tooltipObj.style.width = width + 'px';
         //tooltipObj.style.height = 0; // Initially set the tooltip height to nothing
 
