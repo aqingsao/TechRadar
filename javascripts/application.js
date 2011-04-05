@@ -8,7 +8,7 @@ Item.prototype.color = function(){
 }
 Item.prototype.tooltip = function(){
 	var title = "<h3>" + this.name + "</h3>";
-	var homepage = this.info.homePage === "" ? "" : "<div>" + this.info.homePage + "</div>";
+	var homepage = this.info.homePage === "" ? "" : "<div><a target='_blank' href='" + this.info.homePage + "'> Go to Home Page </a></div>";
 	var desc = this.info.description === '' ? "<div>No description yet</div>" : "<div>" + this.info.description + "</div>";
 	
     return title + homepage + desc;
